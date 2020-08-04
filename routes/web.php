@@ -15,5 +15,5 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'PostController@index');
 Route::post('post/', 'PostController@store')->name('post.store');
-//Route::post('/', 'PostController@imageUpload')->name('post.imageUpload');
+Route::post('post/upload', 'PostController@upload')->name('post.upload');
 Route::get('post/create', 'PostController@create')->name('post.create');

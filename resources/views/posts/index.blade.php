@@ -17,7 +17,7 @@
 <body>
 <nav>
     <ul>
-        <li><a href="" class="logo"><img src="../img/vaity.png">VaITy</a></li>
+        <li><a href="" class="logo"><img src="{{asset('img/vaity.png')}}">VaITy</a></li>
         <li><a href="">Второй</a></li>
         <li><a href="">Третий</a></li>
         <li><a href="">Четвертый</a></li>
