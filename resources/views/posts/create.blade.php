@@ -18,10 +18,12 @@
             ],
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image link media",
             image_title: true,
-            automatic_uploads: true,
+            // automatic_uploads: false,
+            relative_urls: false,
             image_uploadtab: false,
             language: 'ru',
             images_upload_url: '{{route('post.upload')}}',
+            // images_upload_base_path: '../'
             file_picker_types: 'image',
             file_picker_callback: function(cb, value, meta) {
                 var input = document.createElement('input');

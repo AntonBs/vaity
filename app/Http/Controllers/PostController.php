@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
@@ -62,6 +63,8 @@ class PostController extends Controller
 
         $path = Storage::putFile('public', $request->file('file'));
         $url = Storage::url($path);
+        Log::info(array('location' => $url));
+//        $str = substr($url, 0);
         return (array('location' => $url));
 
     }
@@ -73,7 +76,9 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::select('posts.*')->find($id);
+
+        return view('posts.show',compact('post'));
     }
 
     /**
