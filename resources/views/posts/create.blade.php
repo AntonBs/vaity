@@ -1,20 +1,9 @@
-<!Doctype html>
-<html lang="ru" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
+@extends('layouts/layout')
+@section('content')
     <script src="{{asset('tinymce/js/tinymce/tinymce.min.js')}}" ></script>
     <script>
         tinymce.init({
+            branding: false,
             selector: 'textarea',
             height: 500,
             setup: function (editor) {
@@ -27,15 +16,12 @@
                 "searchreplace visualblocks code fullscreen",
                 "insertdatetime media table contextmenu paste imagetools"
             ],
-            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
-            content_css: [
-                '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
-                '//www.tinymce.com/css/codepen.min.css'
-            ],
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image link media",
             image_title: true,
             automatic_uploads: true,
+            image_uploadtab: false,
+            language: 'ru',
             images_upload_url: '{{route('post.upload')}}',
-            // images_upload_base_path: '../',
             file_picker_types: 'image',
             file_picker_callback: function(cb, value, meta) {
                 var input = document.createElement('input');
@@ -59,30 +45,11 @@
             }
         });
     </script>
-</head>
-<body>
-<nav>
-    <ul>
-        <li><a href="" class="logo"><img src="{{asset('img/vaity.png')}}">VaITy</a></li>
-        <li><a href="">Второй</a></li>
-        <li><a href="">Третий</a></li>
-        <li><a href="">Четвертый</a></li>
-        <li><a href="">Пятый</a></li>
-    </ul>
-</nav>
-<main>
-    <div>
-        <a href=""></a>
-    </div>
-    <form action="{{route('post.store')}}" method="post" enctype="multipart/form-data">
+    <form action="{{route('post.store')}}" class="form-article" method="post" enctype="multipart/form-data">
         @csrf
-        Title:<input type="text" name="title"> <br>
-        AuthorID<input type="text" name="author_id">
-        <textarea name="article" id="mytextarea">Hello, World!</textarea>
-        <input type="submit">
+        <input placeholder=" Заголовок..." id="title" type="text" name="title" required> <br>
+        <input name="img" type="file">
+        <textarea placeholder="" name="article" id="textarea" required></textarea>
+        <button type="submit">Отправить</button>
     </form>
-
-
-</main>
-</body>
-</html>
+@endsection

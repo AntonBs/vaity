@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
@@ -13,11 +12,11 @@ class PostController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index()
     {
-        $posts = DB::table('posts')->select('article')->get();
+        $posts = DB::table('posts')->get();
 
         return view('posts.index', compact('posts'));
     }
@@ -25,7 +24,7 @@ class PostController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function create()
     {
@@ -36,37 +35,36 @@ class PostController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-
-        $post = new Post();
-//        $post->title = $request->title;
-//        $post->short_title = Str::length($request->title)>30 ? Str::substr($request->title, 0, 30). '...' : $request->title;
-//        $post->description = $request->description;
-//        $post->author_id = \Auth::user()->id;
-//
-//        if ($request->file('img')) {
-//            $path = Storage::putFile('public', $request->file('img'));
-//            $url = Storage::url($path);
-//            $post->img = $url;
-//        }
+       $post = new Post();
 
        $post->title = $request->title;
        $post->article = $request->article;
-       $post->author_id = $request->author_id;
+       $post->img = $request->img;
+       $post->author_id = 1;
+
+        if ($request->file('img')) {
+            $path = Storage::putFile('public', $request->file('img'));
+            $url = Storage::url($path);
+            $post->img = $url;
+        }
 
        $post->save();
+       return redirect()->route('post.index');
 
     }
 
-    public function upload(Request $request){
+    public function upload(Request $request)
+    {
+
         $path = Storage::putFile('public', $request->file('file'));
-        $url  = Storage::url($path);
+        $url = Storage::url($path);
         return (array('location' => $url));
-    }
 
+    }
     /**
      * Display the specified resource.
      *

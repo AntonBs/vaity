@@ -1,39 +1,25 @@
-<!Doctype html>
-<html lang="ru" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
-    <script src="{{asset('tinymce/js/tinymce/tinymce.min.js')}}" ></script>
-</head>
-<body>
-<nav>
-    <ul>
-        <li><a href="" class="logo"><img src="{{asset('img/vaity.png')}}">VaITy</a></li>
-        <li><a href="">Второй</a></li>
-        <li><a href="">Третий</a></li>
-        <li><a href="">Четвертый</a></li>
-        <li><a href="">Пятый</a></li>
-    </ul>
-</nav>
-<main>
+@extends('layouts/layout')
+@section('content')
     <div>
-        @php
-            foreach ($posts as $post){
-            print_r($post->article);
+        @foreach ($posts as $post)
 
-}
-        @endphp
+
+
+            <div >{{$post->title}}</div>
+{{--            <div >{!! $post->article !!} </div>--}}
+            <div class="post-img" style="background-image: url({{ $post->img }})"></div>
+{{--            <div class="post-index">--}}
+{{--                <div class="post-title"><h2>{{ $post->title }}</h2></div>--}}
+{{--                <div class="post-article">--}}
+{{--                    <div class="card-img" style="background-image: url({{ $post->img ?? asset('img/picca.jpg') }})"></div>--}}
+{{--                    <div class="card-author">Автор: {{ $post->name }}</div>--}}
+{{--                    <a href="{{ route('post.show', $post) }}" class="btn btn-outline-primary">Посмотреть пост</a>--}}
+{{--                </div>--}}
+{{--            </div>--}}
+
+
+
+
+        @endforeach
     </div>
-
-</main>
-</body>
-</html>
+@endsection

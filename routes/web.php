@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PostController@index');
+Route::get('/', 'PostController@index')->name('post.index');
 Route::post('post/', 'PostController@store')->name('post.store');
 Route::post('post/upload', 'PostController@upload')->name('post.upload');
 Route::get('post/create', 'PostController@create')->name('post.create');
