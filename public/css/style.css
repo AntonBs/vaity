@@ -77,16 +77,80 @@ nav ul li a{
 
 
 }
-@media (min-width: 768px) {
-    nav{
-        height: 44px;
-    }
+.container-post{
+    margin-top: 10px;
 }
-
+.post-index{
+    box-sizing: border-box;
+    border: 2px solid grey;
+    padding: 0px 20px 20px 20px;
+    margin-bottom: 20px;
+}
 .post-img{
     height: 200px;
     background-position: center center;
     -webkit-background-size: cover;
     background-size: cover;
     background-repeat: no-repeat;
+}
+.post-title h2{
+    display: inline-block;
+}
+
+
+.container-post>.post-index:first-child>.post-title h2:before{
+    content:' ⚝NEW⚝ ' ;
+    color: red;
+    font-size: 24px;
+    background: -webkit-linear-gradient(left,#33235b,#d62229,#e97639,#792042,#33235b);
+    background: linear-gradient(left,#33235b,#d62229,#e97639,#792042,#33235b);
+    background-size: 200px 200px;
+    margin-top: 20vh;
+    color: transparent;
+    -webkit-background-clip: text;
+    -webkit-animation: animate-text;
+    -webkit-animation-delay: 0;
+    -webkit-animation-duration: 7s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-fill-mode: forwards;
+    transition: font-size 5s ease-in-out;
+    /*animation: blur .75s ease-out infinite;*/
+}
+
+@keyframes animate-text {
+    0% {
+        background-position: 0 3200px;
+    }
+    100% {
+        background-position: 3200px 0;
+    }
+}
+
+@keyframes blur {
+    from {
+        text-shadow:0px 0px 10px #fff,
+        0px 0px 10px #ff0000,
+        0px 0px 12px #ff0000,
+        0px 0px 13px #ff0000,
+        0px 0px 15px #ff0000,
+        0px 0px 25px #ff0000,
+        0px 0px 25px #ff0000,
+        0px 0px 25px #ff0000,
+        0px 0px 30px #ff0000,
+        0px 10px 35px #ff0000,
+        0px 10px 35px #ff0000,
+        0px 10px 35px #ff0000,
+        0px 10px 35px #ff0000,
+        0px -10px 35px #ff0000,
+        0px -10px 35px #ff0000;
+    }
+}
+
+
+/*Responsive*/
+@media (min-width: 768px) {
+    nav{
+        height: 44px;
+    }
 }
