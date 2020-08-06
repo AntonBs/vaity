@@ -1,6 +1,6 @@
 @extends('layouts/layout')
 @section('content')
-    <div class="container-post">
+    <article class="container-post">
         @foreach ($posts as $post)
 
 
@@ -12,10 +12,10 @@
                 <div class="post-title"><h2>{{ $post->title }}</h2></div>
                 <div class="post-article">
                     <div class="post-img" style="background-image: url({{ $post->img }})"></div>
-                    <div >{!! $post->article !!} </div>
+{{--                    <div >{!! $post->article !!} </div>--}}
 
 {{--                    <div class="card-author">Автор: {{ $post->name }}</div>--}}
-                    <a href="{{ route('post.show',['id'=>$post->post_id]) }}" class="btn btn-outline-primary">Посмотреть пост</a>
+                    <a href="{{ route('post.show',['id'=>$post->post_id]) }}" class="btn">Посмотреть пост</a>
                 </div>
             </div>
 
@@ -23,5 +23,5 @@
 
 
         @endforeach
-    </div>
+    </article>
 @endsection

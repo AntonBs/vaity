@@ -18,7 +18,6 @@
             ],
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | image link media",
             image_title: true,
-            // automatic_uploads: false,
             relative_urls: false,
             image_uploadtab: false,
             language: 'ru',
