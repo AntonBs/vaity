@@ -17,7 +17,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')->get();
+        $posts = DB::table('posts')->OrderBy('posts.created_at', 'desc')->get();
 
         return view('posts.index', compact('posts'));
     }
@@ -54,7 +54,7 @@ class PostController extends Controller
         }
 
        $post->save();
-       return redirect()->route('post.index');
+       return redirect()->route('post.show');
 
     }
 
@@ -63,8 +63,6 @@ class PostController extends Controller
 
         $path = Storage::putFile('public', $request->file('file'));
         $url = Storage::url($path);
-        Log::info(array('location' => $url));
-//        $str = substr($url, 0);
         return (array('location' => $url));
 
     }

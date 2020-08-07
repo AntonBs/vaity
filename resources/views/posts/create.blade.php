@@ -4,7 +4,7 @@
     <script>
         tinymce.init({
             branding: false,
-            selector: 'textarea',
+            selector: '#textarea-article',
             height: 500,
             setup: function (editor) {
                 editor.on('init change', function () {
@@ -46,11 +46,12 @@
             }
         });
     </script>
-    <form action="{{route('post.store')}}" class="form-article" method="post" enctype="multipart/form-data">
+    <form action="{{route('post.store')}}" class="form-article" method="post" enctype="multipart/form-data" >
         @csrf
-        <input placeholder=" Заголовок..." id="title" type="text" name="title" required> <br>
-        <input name="img" type="file">
-        <textarea placeholder="" name="article" id="textarea" required></textarea>
+        <textarea placeholder=" Заголовок..." name="title" id="textarea-title" onkeyup="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'" required></textarea>
+            <input name="img" type="file"><br>
+        <textarea placeholder=" Описание ститьи..." name="description" id="textarea-description" onkeyup="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'" required></textarea>
+        <textarea placeholder="" name="article" id="textarea-article" required></textarea>
         <button type="submit">Отправить</button>
     </form>
 @endsection

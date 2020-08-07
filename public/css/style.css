@@ -126,7 +126,31 @@ nav ul li a{
     transition: font-size 5s ease-in-out;
     /*animation: blur .75s ease-out infinite;*/
 }
+#textarea-description{
+    margin-top: 3px;
+    width: 100%;
+    box-sizing: border-box;
+    resize: vertical;
+    border-color: rgb(204, 204, 204);
+    font-size: 24px;
+}
+#textarea-description::-webkit-scrollbar {
+    display:none;
+}
 
+#textarea-title{
+    width: 100%;
+    font-size: 30px;
+    box-sizing: border-box;
+    resize: vertical;
+    margin-top: 10px;
+    margin-bottom: -3px;
+    border-color: rgb(204, 204, 204);
+    height: 45px;
+}
+#textarea-title::-webkit-scrollbar {
+    display:none;
+}
 @keyframes animate-text {
     0% {
         background-position: 0 3200px;
