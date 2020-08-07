@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 
@@ -17,8 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')->OrderBy('posts.created_at', 'desc')->get();
-
+        $posts = DB::table('posts')->orderBy('posts.created_at', 'desc')->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -40,12 +38,13 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-       $post = new Post();
+        $post = new Post();
 
-       $post->title = $request->title;
-       $post->article = $request->article;
-       $post->img = $request->img;
-       $post->author_id = 1;
+        $post->title = $request->title;
+        $post->article = $request->article;
+        $post->img = $request->img;
+        $post->author_id = 1;
+        $post->description = $request->description;
 
         if ($request->file('img')) {
             $path = Storage::putFile('public', $request->file('img'));
@@ -53,8 +52,8 @@ class PostController extends Controller
             $post->img = $url;
         }
 
-       $post->save();
-       return redirect()->route('post.show');
+        $post->save();
+        return redirect()->route('post.index');
 
     }
 
@@ -70,7 +69,7 @@ class PostController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function show($id)
     {
@@ -87,7 +86,9 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+
+        return view('posts.edit',compact('post'));
     }
 
     /**
@@ -99,7 +100,22 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post= Post::find($id);
+
+        $post->title = $request->title;
+        $post->article = $request->article;
+        $post->img = $request->img;
+        $post->author_id = 1;
+        $post->description = $request->description;
+
+        if ($request->file('img')) {
+            $path = Storage::putFile('public', $request->file('img'));
+            $url = Storage::url($path);
+            $post->img = $url;
+        }
+
+        $post->update();
+        return redirect()->route('post.show', $post);
     }
 
     /**
@@ -110,6 +126,10 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+
+        $post->delete();
+        return redirect()->route('post.index');
     }
+
 }

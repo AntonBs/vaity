@@ -18,3 +18,6 @@ Route::post('post/', 'PostController@store')->name('post.store');
 Route::post('post/upload', 'PostController@upload')->name('post.upload');
 Route::get('post/create', 'PostController@create')->name('post.create');
 Route::get('post/show/{id}','PostController@show')->name('post.show');
+Route::get('post/edit/{id}', 'PostController@edit')->name('post.edit');
+Route::delete('post/{id}', 'PostController@destroy')->name('post.destroy');
+Route::patch('post/show/{id}', 'PostController@update')->name('post.update');
