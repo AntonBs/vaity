@@ -16,7 +16,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = DB::table('posts')->orderBy('posts.created_at', 'desc')->get();
+        $posts = Post::join('users', 'author_id', '=', 'users.id')->orderBy('posts.created_at', 'desc')->get();
         return view('posts.index', compact('posts'));
     }
 
@@ -73,7 +73,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::select('posts.*')->find($id);
+        $post = Post::join('users', 'author_id', '=', 'users.id')->find($id);
 
         return view('posts.show',compact('post'));
     }
@@ -82,7 +82,7 @@ class PostController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function edit($id)
     {
@@ -96,7 +96,7 @@ class PostController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
@@ -122,7 +122,7 @@ class PostController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy($id)
     {
@@ -131,5 +131,4 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('post.index');
     }
-
 }

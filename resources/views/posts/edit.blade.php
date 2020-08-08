@@ -31,7 +31,6 @@
                 input.setAttribute('accept', 'image/*');
                 input.onchange = function() {
                     var file = this.files[0];
-
                     var reader = new FileReader();
                     reader.readAsDataURL(file);
                     reader.onload = function () {
@@ -47,40 +46,10 @@
             }
         });
     </script>
-    <script type="text/javascript" src="{{asset('js/jquery-3.5.1.min.js')}}"></script>
 
     <form action="{{route('post.update',['id'=>$post->post_id])}}" class="form-article" method="post" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
-        <textarea onkeyup="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"  placeholder=" Заголовок статьи..." id="textarea-title" type="text" name="title" required>{{old('description') ?? $post->title ?? ''}}</textarea>
-        <textarea onkeyup="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'" placeholder=" Описание статьи... Максимум 100 символов" id="textarea-description" type="text" name="description" required>{{old('description')?? $post->description  ?? ''}}</textarea>
-        <input type="file" name="img" id="img" value="{{old('img')?? $post->img  ?? ''}}">
-        <span id="output"></span>
-        <script>
-            function handleFileSelect(evt) {
-                var file = evt.target.files; // FileList object
-                var f = file[0];
-                // Only process image files.
-                if (!f.type.match('image.*')) {
-                    alert("Image only please....");
-                }
-                var reader = new FileReader();
-                // Closure to capture the file information.
-                reader.onload = (function(theFile) {
-                    return function(e) {
-                        // Render thumbnail.
-                        var span = document.createElement('span');
-                        span.innerHTML = ['<img class="thumb" title="', escape(theFile.name), '" src="', e.target.result, '" />'].join('');
-                        document.getElementById('output').insertBefore(span, null);
-                    };
-                })(f);
-                // Read in the image file as a data URL.
-                reader.readAsDataURL(f);
-            }
-            document.getElementById('img').addEventListener('change', handleFileSelect, false);
-        </script>
-        <textarea placeholder="" name="article" id="textarea" required>{{old('article')?? $post->article ?? ''}}</textarea>
-        <button type="submit">Отправить</button>
+        @include('layouts/form')
     </form>
 @endsection
-

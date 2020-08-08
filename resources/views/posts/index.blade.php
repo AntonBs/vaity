@@ -1,27 +1,21 @@
 @extends('layouts/layout')
 @section('content')
-    <div class="container-post">
-        @foreach ($posts as $post)
+    @foreach ($posts as $post)
 
+        <article class="article-index">
+            <div class="article-post">
+            <h2 class="post-title">{{ $post->title }}</h2>
+             <div class="post-author">
+                 <h3 class="post-author-name">{{$post->name}}</h3>
+                  <p class="post-author-date">{{$post->created_at->format('d.m.y')}}</p>
+             </div>
+            <img  src="{{$post->img}}">
 
-
-            {{--            <div >{{$post->title}}</div>--}}
-            {{--            <div >{!! $post->article !!} </div>--}}
-            {{--            <div class="post-img" style="background-image: url({{ $post->img }})"></div>--}}
-            <div class="post-index">
-                <div class="post-title"><h2>{{ $post->title }}</h2></div>
-                <div class="post-article">
-                    <div class="post-img" style="background-image: url({{ $post->img }})"></div>
-                    <div class="post-description">{{$post->description}}</div>
-
-                    {{--                    <div class="card-author">Автор: {{ $post->name }}</div>--}}
-                    <a href="{{ route('post.show',['id'=>$post->post_id]) }}" class="btn btn-outline-primary">Посмотреть пост</a>
-                </div>
+            <p class="post-description">{{$post->description}}</p>
             </div>
+            <button name="see-post" type="button"><a href="{{ route('post.show',['id'=>$post->post_id]) }}" >Читать далее...</a></button>
 
+        </article>
 
-
-
-        @endforeach
-    </div>
+    @endforeach
 @endsection

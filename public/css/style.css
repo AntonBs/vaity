@@ -13,11 +13,13 @@
 
 body{
     margin: 0;
-    height: 2000px;
     font-weight: normal;
 }
 *{
     font-family: Nunito, sans-serif;
+}
+p {
+    margin: 0;
 }
 nav{
     width: 100%;
@@ -88,11 +90,9 @@ nav ul li a{
 .container-post{
     margin-top: 10px;
 }
-.post-index{
-    box-sizing: border-box;
-    border: 2px solid grey;
-    padding: 0px 20px 20px 20px;
-    margin-bottom: 20px;
+article{
+
+    margin-bottom: 10px;
 }
 .post-index-show{
     box-sizing: border-box;
@@ -116,21 +116,33 @@ nav ul li a{
     display: inline-block;
 }
 .post-description {
-    font-size: 20px;
+    font-size: 25px;
     margin: 20px 0;
 }
 
-#output span img.thumb{
-    max-width: 100%;
+#output img.thumb{
+    max-width: 500px;
     display: block;
     margin: 0 auto 3px auto;
 
 }
+
+#textarea-title{
+    width: 100%;
+    font-size: 30px;
+    box-sizing: border-box;
+    resize: none;
+    margin-top: 10px;
+    border-color: rgb(204, 204, 204);
+    height: 45px;
+    padding-left: 5px;
+}
+
 #textarea-description{
     margin-top: 3px;
     width: 100%;
     box-sizing: border-box;
-    resize: vertical;
+    resize: none;
     border-color: rgb(204, 204, 204);
     font-size: 24px;
     padding-left: 5px;
@@ -139,17 +151,7 @@ nav ul li a{
     display:none;
 }
 
-#textarea-title{
-    width: 100%;
-    font-size: 30px;
-    box-sizing: border-box;
-    resize: vertical;
-    margin-top: 10px;
-    margin-bottom: -3px;
-    border-color: rgb(204, 204, 204);
-    height: 45px;
-    padding-left: 5px;
-}
+
 #textarea-title::-webkit-scrollbar {
     display:none;
 }
@@ -166,8 +168,93 @@ nav ul li a{
     font-size: 16px;
 }
 
+article img{
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+}
 
-.container-post>.post-index:first-child>.post-title h2:before{
+article h2{
+    font-size: 52px;
+    font-weight: 600;
+    max-width: 768px;
+    margin: 0 auto 15px;
+}
+
+article.post-show {
+    max-width: 768px;
+    margin: 0 auto;
+    font-size: 25px;
+}
+
+article button[name='see-post']{
+    font-size: 20px;
+    background: linear-gradient(#42a1ec,#0070c9);
+    border: 1px solid #07c;
+    border-radius: 4px;
+    width: 200px;
+    padding: 0;
+}
+.btn-outline-danger {
+    font-size: 20px;
+    background: linear-gradient(#ff0202,#a21515);
+    border: 1px solid #dc3d3d;
+    border-radius: 4px;
+    width: 176px;
+    padding: 0;
+    color: white;
+}
+.btn-outline-primary {
+    font-size: 20px;
+    background: linear-gradient(#42a1ec,#0070c9);
+    border: 1px solid #07c;
+    border-radius: 4px;
+    padding: 0px 25px;
+    color: white;
+}
+.article-index {
+    border-bottom: 2px solid rgb(240, 240, 240);
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+}
+
+article button[name='see-post'] a{
+    text-decoration: none;
+    color: #fff;
+    display: block;
+    width: 200px;
+    padding: 5px;
+}
+
+article button[name='see-post']:hover{
+    background: linear-gradient(#58a9e7, #177dc7);
+}
+.control-post-btn {
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 30px;
+}
+.article-post {
+    margin-bottom: 20px;
+}
+.post-author{
+    display: block;
+    margin: 15px 0;
+}
+.post-author-name,.post-author-date{
+    font-size: 17px;
+    font-weight: lighter;
+    display: inline;
+}
+.post-author-date{
+    color: grey;
+}
+.btn-create{
+    margin-bottom: 30px;
+}
+
+
+.article-index:first-child >.article-post>h2:before{
     content:' * ' ;
     color: red;
     font-size: 24px;
