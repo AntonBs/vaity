@@ -203,6 +203,7 @@ article button[name='see-post']{
     width: 176px;
     padding: 0;
     color: white;
+    cursor: pointer;
 }
 .btn-outline-primary {
     font-size: 20px;
@@ -211,6 +212,10 @@ article button[name='see-post']{
     border-radius: 4px;
     padding: 0px 25px;
     color: white;
+
+}
+.btn-outline-primary:focus {
+ outline: none;
 }
 .article-index {
     border-bottom: 2px solid rgb(240, 240, 240);
