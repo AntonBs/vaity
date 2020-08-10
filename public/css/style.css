@@ -126,10 +126,12 @@ article{
 }
 
 #output img.thumb{
-    max-width: 500px;
+    max-width: 100%;
     display: block;
     margin: 0 auto 3px auto;
-
+}
+input#img {
+    margin-bottom: 7px;
 }
 
 #textarea-title{
@@ -262,7 +264,27 @@ article button[name='see-post']:hover{
 .btn-create{
     margin-bottom: 30px;
 }
+.errors-post {
+    background: #ff0000a6;
+    margin: 10px 0px;
+    padding: 10px;
+    border-radius: 5px;
+    color: white;
 
+}
+button.close{
+    float: right;
+    border-radius: 100%;
+    width: 27px;
+    height: 27px;
+    position: relative;
+    bottom: 2px;
+}
+
+button.close:focus {
+    border-radius: 100%;
+    outline: none;
+}
 
 .article-index:first-child >.article-post>h2:before{
     content:' * ' ;

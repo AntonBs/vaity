@@ -50,8 +50,23 @@
         nav.classList.remove('nav-desktop');
         navLink.classList.toggle('black-bg');
     }
+    function myFunc(elem) {
+        elem.parentNode.style.display = "none";
+    }
 </script>
 <main>
+    @if($errors->any())
+        @foreach($errors->all() as $error)
+
+            <div class="errors-post" onclick = "this.remove()">
+                {{ $error }}
+                <button class="close" >
+                    <span>&#10006;</span>
+                </button>
+            </div>
+
+        @endforeach
+    @endif
 
     @yield('content')
 

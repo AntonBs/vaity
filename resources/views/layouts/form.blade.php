@@ -48,7 +48,7 @@
 
 <textarea onkeyup="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"  placeholder=" Заголовок статьи... Максимум 20 символов" id="textarea-title" type="text" name="title" required>{{old('description') ?? $post->title ?? ''}}</textarea>
 
-<input type="file" name="img" id="img" value="{{old('img')?? $post->img  ?? ''}}">
+<input type="file" name="img" id="img" value="{{old('img')?? $post->img  ?? ''}}" required>
 <span id="output">
                 <img class="thumb" src="{{old('img')?? $post->img  ?? ''}}">
         </span>
@@ -76,5 +76,5 @@
 </script>
 
 <textarea onkeyup="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'" placeholder=" Описание статьи... Максимум 100 символов" id="textarea-description" type="text" name="description" required>{{old('description')?? $post->description  ?? ''}}</textarea>
-<textarea placeholder="" name="article" id="textarea" required>{{old('article')?? $post->article ?? ''}}</textarea>
+<textarea  name="article" id="textarea">{{old('article')?? $post->article ?? ''}}</textarea>
 <button type="submit" class="btn-create">Отправить</button>
