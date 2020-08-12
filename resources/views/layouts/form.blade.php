@@ -3,9 +3,10 @@
     tinymce.init({
         branding: false,
         selector: '#textarea',
-        height: '700px',
+        height: '750px',
         resize: false,
         resize_img_proportional: true,
+        content_css: '{{asset('css/style.css')}}',
         setup: function (editor) {
             editor.on('init change', function () {
                 editor.save();
@@ -21,8 +22,8 @@
         relative_urls: false,
         image_uploadtab: false,
         language: 'ru',
-        images_upload_url: '{{route('post.upload')}}',
         file_picker_types: 'image',
+        images_upload_url: '{{route('post.upload')}}',
         file_picker_callback: function(cb, value, meta) {
             var input = document.createElement('input');
             input.setAttribute('type', 'file');
@@ -37,21 +38,23 @@
                     var base64 = reader.result.split(',')[1];
                     var blobInfo = blobCache.create(id, file, base64);
                     blobCache.add(blobInfo);
-                    cb(blobInfo.blobUri(), { title: file.name });
+                    cb(blobInfo.blobUri(), { title: file.name, width: ' ' });
                 };
             };
             input.click();
         }
     });
+
 </script>
 
+<textarea  onkeyup="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"  placeholder=" Заголовок статьи... Максимум 50 символов" id="textarea-title" type="text" name="title">{{old('title') ?? $post->title ?? ''}}</textarea>
 
-<textarea onkeyup="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'"  placeholder=" Заголовок статьи... Максимум 20 символов" id="textarea-title" type="text" name="title" required>{{old('description') ?? $post->title ?? ''}}</textarea>
-
-<input type="file" name="img" id="img" value="{{old('img')?? $post->img  ?? ''}}" required>
+<p style="padding-left: 0; font-size: 18px; display: inline">Загрузить титульное изображение:</p>
+<input type="file" name="img" id="img" value="">
 <span id="output">
                 <img class="thumb" src="{{old('img')?? $post->img  ?? ''}}">
         </span>
+
 <script>
     function handleFileSelect(evt) {
         var file = evt.target.files; // FileList object
@@ -59,6 +62,7 @@
         // Only process image files.
         if (!f.type.match('image.*')) {
             alert("Image only please....");
+            return
         }
         var reader = new FileReader();
         // Closure to capture the file information.
@@ -74,7 +78,6 @@
     }
     document.getElementById('img').addEventListener('change', handleFileSelect, false);
 </script>
-
 <textarea onkeyup="this.style.height = 'auto'; this.style.height = this.scrollHeight + 'px'" placeholder=" Описание статьи... Максимум 100 символов" id="textarea-description" type="text" name="description" required>{{old('description')?? $post->description  ?? ''}}</textarea>
-<textarea  name="article" id="textarea">{{old('article')?? $post->article ?? ''}}</textarea>
-<button type="submit" class="btn-create">Отправить</button>
+<textarea name="article" id="textarea" >{{old('article')?? $post->article ?? ''}}</textarea>
+<button type="submit">Отправить</button>

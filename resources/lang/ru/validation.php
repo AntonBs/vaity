@@ -78,16 +78,16 @@ return [
     ],
     'max' => [
         'numeric' => 'The :attribute may not be greater than :max.',
-        'file' => 'Поле ":attribute" не должно превышать :max КБ',
-        'string' => 'Поле ":attribute" должно быть максимум :max символов',
+        'file' => ':attribute не должно быть больше :max кб',
+        'string' => 'Поле :attribute должно быть максимум :max символов',
         'array' => 'The :attribute may not have more than :max items.',
     ],
-    'mimes' => 'Поле ":attribute" должно быть в формате jpg, jpeg или png',
+    'mimes' => 'Поле :attribute должно быть в формате jpg, jpeg, webp или png',
     'mimetypes' => 'The :attribute must be a file of type: :values.',
     'min' => [
         'numeric' => 'The :attribute must be at least :min.',
         'file' => 'The :attribute must be at least :min kilobytes.',
-        'string' => 'Поле ":attribute" должно быть как минимум :min символа',
+        'string' => 'Поле :attribute должно быть как минимум :min символов',
         'array' => 'The :attribute must have at least :min items.',
     ],
     'not_in' => 'The selected :attribute is invalid.',
@@ -96,7 +96,7 @@ return [
     'password' => 'The password is incorrect.',
     'present' => 'The :attribute field must be present.',
     'regex' => 'The :attribute format is invalid.',
-    'required' => 'Поле ":attribute" обязательно к заполнению',
+    'required' => ':attribute обязательно',
     'required_if' => 'The :attribute field is required when :other is :value.',
     'required_unless' => 'The :attribute field is required unless :other is in :values.',
     'required_with' => 'The :attribute field is required when :values is present.',
@@ -147,12 +147,11 @@ return [
     */
 
     'attributes' => [
-      'title'=>'Заголовок',
-      'description'=>'Описание',
-      'img'=>'Изображение',
-      'password'=>'Пароль',
-      'article'=>'Cтатья',
-
+        'title'=>'Заголовок',
+        'article'=>'Статья',
+        'description'=>'Описание',
+        'img'=>'Титульное изображение',
+        'password'=>'Пароль'
     ],
 
 ];

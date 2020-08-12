@@ -7,53 +7,86 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
-
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 </head>
 <body>
-<nav class="nav-desktop">
-    <div class="nav-content">
-        <a href="{{route('post.index')}}" class="logo">
-            <img src="{{asset('/img/vaity.png')}}">VaITy
+<header>
+    <div class="container">
+        <nav class="nav">
+            <ul class="nav-list nav-list-mobile">
+                <li class="nav-item">
+                    <div class="mobile-menu">
+                        <span class="line line-top"></span>
+                        <span class="line line-bottom"></span>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('post.index')}}" class="nav-link nav-link-apple" ></a>
+                </li>
+                <li class="nav-item">
+                </li>
+            </ul>
+
+            <ul class="nav-list nav-list-larger">
+                <li class="nav-item nav-item-hidden">
+                    <a href="{{route('post.index')}}" class="nav-link nav-link-apple" ></a>
+                </li>
+                <li class="nav-item nav-mobile-hidden" >
+                    <i class="nav-link-search"></i>
+                    <input type="text" name="search" class="search-form-mobile" placeholder="Search apple.com" autocorrect="off" autocapitalize="off" autocomplete="off">
+                </li>
+                <li class="nav-item">
+                    <a href="{{route('post.create')}}"  class="nav-link nav-link-h" >Создать пост</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link nav-link-h" >Логин</a>
+                </li>
+
+                <li class="nav-item nav-item-hidden" >
+                    <a href="#" id="search" class="nav-link nav-link-search" ></a>
+                </li>
+            </ul>
+        </nav>
+        <div class="search-form">
+            <form>
+                <input type="text" name="search" placeholder="Search apple.com" autocorrect="off" autocapitalize="off" autocomplete="off">
+            </form>
+        </div>
+        <a class="close">
+            <i class="fa fa-times"></i>
         </a>
-
-
-        <div class="nav-icon">
-            <div class="bar one"></div>
-            <div class="bar two"></div>
-        </div>
-
-        <div id="nav-links" class="nav-links">
-            <a href="{{route('post.index')}}">Главная</a>
-            <a href="{{route('post.create')}}">Создать пост</a>
-            <a href="#">FAQ</a>
-            <a href="#">Login</a>
-        </div>
-
-        <svg class="search-icon" viewBox="0 0 3.7041668 11.641667" height="44" width="14">
-            <g transform="matrix(0.97865947,0,0,0.97865947,-18.209185,-74.390797)">
-                <path d="m 19.070369,80.532362 c -0.618144,0.618143 -0.619255,1.62581 -7.32e-4,2.244333 0.570867,0.570865 1.473777,0.613735 2.095614,0.131181 l 0.945308,0.945309 0.280633,-0.280633 -0.945308,-0.945309 c 0.482552,-0.621838 0.439684,-1.524746 -0.131182,-2.095613 -0.618523,-0.618523 -1.62619,-0.617413 -2.244333,7.32e-4 z m 0.280632,0.280632 c 0.466517,-0.466515 1.216631,-0.467898 1.683433,-0.0011 0.466802,0.466801 0.466882,1.218378 3.64e-4,1.684894 -0.466512,0.466513 -1.21809,0.466436 -1.684892,-3.67e-4 -0.466803,-0.466801 -0.465418,-1.216918 0.0011,-1.683432 z" fill="white" />
-            </g>
-        </svg>
     </div>
-</nav>
+
+</header>
 
 
+<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 <script>
-    const navIcon = document.querySelector(".nav-icon");
-    const nav = document.querySelector("nav");
-    const navLink = document.querySelector("#nav-links");
-    navIcon.onclick = function () {
-        nav.classList.toggle('show');
-        nav.classList.toggle('black-bg');
-        nav.classList.remove('nav-desktop');
-        navLink.classList.toggle('black-bg');
-    }
-    function myFunc(elem) {
-        elem.parentNode.style.display = "none";
-    }
+
+    const selectElement = (element) => document.querySelector(element);
+
+    selectElement('.mobile-menu').addEventListener('click', () => {
+        selectElement('header').classList.toggle('active');
+    });
+
+
+    $(document).ready(function () {
+        $('#search').click(function () {
+            $('.nav-link-h').addClass('hide-item')
+            $('.search-form').addClass('active')
+            $('.close').addClass('active')
+            $('#search').hide()
+        })
+        $('.close').click(function () {
+            $('.nav-link-h').removeClass('hide-item')
+            $('.search-form').removeClass('active')
+            $('.close').removeClass('active')
+            $('#search').show()
+        })
+    })
 </script>
+
 <main>
     @if($errors->any())
         @foreach($errors->all() as $error)

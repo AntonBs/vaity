@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PostRequest;
 use App\Post;
+use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-
 
 class PostController extends Controller
 {
@@ -40,7 +40,9 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $post = new Post();
-
+        Validator::make($request->all(), [
+            'img' => 'required',
+        ])->validate();
         $post->title = $request->title;
         $post->article = $request->article;
         $post->img = $request->img;
@@ -61,6 +63,9 @@ class PostController extends Controller
     public function upload(Request $request)
     {
 
+        Validator::make($request->all(), [
+            'file' => 'mimes:jpeg,jpg,webp,png',
+        ])->validate();
         $path = Storage::putFile('public', $request->file('file'));
         $url = Storage::url($path);
         return (array('location' => $url));
@@ -105,7 +110,9 @@ class PostController extends Controller
 
         $post->title = $request->title;
         $post->article = $request->article;
-        $post->img = $request->img;
+        if ($request->img){
+            $post->img = $request->img;
+        }
         $post->author_id = 1;
         $post->description = $request->description;
 
