@@ -7,102 +7,127 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
     <title>{{ config('app.name', 'Laravel') }}</title>
+    <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
-    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
+
 </head>
 <body>
-<header>
-    <div class="container">
-        <nav class="nav">
-            <ul class="nav-list nav-list-mobile">
-                <li class="nav-item">
-                    <div class="mobile-menu">
-                        <span class="line line-top"></span>
-                        <span class="line line-bottom"></span>
+<div class="container">
+    <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+            <div class="col-4 pt-1">
+                <a class="text-muted" href="{{route('post.create')}}">Создать статью</a>
+            </div>
+            <div class="col-4 text-center">
+                <a class="blog-header-logo text-dark" href="{{route('post.index')}}">VaITy</a>
+            </div>
+            <div class="col-4 d-flex justify-content-end align-items-center">
+                <a data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" class="text-muted" href="#" aria-label="Search">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="mx-3" role="img" viewBox="0 0 24 24" focusable="false"><title>Search</title><circle cx="10.5" cy="10.5" r="7.5"></circle><path d="M21 21l-5.2-5.2"></path></svg>
+                </a>
+
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Поиск</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{{ route('post.index') }}">
+                                    @csrf
+                                    <div class="form-group">
+                                        <label for="recipient-name" class="col-form-label">Найти на сайте:</label>
+                                        <input aria-label="Search" name="search" type="search" class="form-control" id="recipient-name">
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary"> Найти </button>
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('post.index')}}" class="nav-link nav-link-apple" ></a>
-                </li>
-                <li class="nav-item">
-                </li>
-            </ul>
+                </div>
+                <script>
+                    $('#exampleModal').on('show.bs.modal', function (event) {
+                        var button = $(event.relatedTarget) // Button that triggered the modal
+                        var recipient = button.data('whatever') // Extract info from data-* attributes
+                        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                        var modal = $(this)
+                        modal.find('.modal-title').text('New message to ' + recipient)
+                        modal.find('.modal-body input').val(recipient)
+                    })
+                </script>
+                <ul class="navbar-nav">
+                    <!-- Authentication Links -->
+                    @guest
+                        <li class="nav-item">
+                            <a class=" btn btn-sm btn-outline-secondary" href="{{ route('login') }}">{{ __('Войти') }}</a>
+                        </li>
+                        {{--                    @if (Route::has('register'))--}}
+                        {{--                        <li class="nav-item">--}}
+                        {{--                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>--}}
+                        {{--                        </li>--}}
+                        {{--                    @endif--}}
+                    @else
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                <span class="author-name">{{ Auth::user()->name }}</span> <span class="caret"></span>
+                            </a>
 
-            <ul class="nav-list nav-list-larger">
-                <li class="nav-item nav-item-hidden">
-                    <a href="{{route('post.index')}}" class="nav-link nav-link-apple" ></a>
-                </li>
-                <li class="nav-item nav-mobile-hidden" >
-                    <i class="nav-link-search"></i>
-                    <input type="text" name="search" class="search-form-mobile" placeholder="Search apple.com" autocorrect="off" autocapitalize="off" autocomplete="off">
-                </li>
-                <li class="nav-item">
-                    <a href="{{route('post.create')}}"  class="nav-link nav-link-h" >Создать пост</a>
-                </li>
-                <li class="nav-item">
-                    <a href="#" class="nav-link nav-link-h" >Логин</a>
-                </li>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <span class="author-name-mobile dropdown-item ">{{ Auth::user()->name }}</span>
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                   onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                    {{ __('Выйти') }}
+                                </a>
 
-                <li class="nav-item nav-item-hidden" >
-                    <a href="#" id="search" class="nav-link nav-link-search" ></a>
-                </li>
-            </ul>
-        </nav>
-        <div class="search-form">
-            <form>
-                <input type="text" name="search" placeholder="Search apple.com" autocorrect="off" autocapitalize="off" autocomplete="off">
-            </form>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
+                    @endguest
+                </ul>
+                {{--            <a class="btn btn-sm btn-outline-secondary" href="#">Войти</a>--}}
+            </div>
         </div>
-        <a class="close">
-            <i class="fa fa-times"></i>
-        </a>
-    </div>
-
-</header>
-
-
-<script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
-<script>
-
-    const selectElement = (element) => document.querySelector(element);
-
-    selectElement('.mobile-menu').addEventListener('click', () => {
-        selectElement('header').classList.toggle('active');
-    });
-
-
-    $(document).ready(function () {
-        $('#search').click(function () {
-            $('.nav-link-h').addClass('hide-item')
-            $('.search-form').addClass('active')
-            $('.close').addClass('active')
-            $('#search').hide()
-        })
-        $('.close').click(function () {
-            $('.nav-link-h').removeClass('hide-item')
-            $('.search-form').removeClass('active')
-            $('.close').removeClass('active')
-            $('#search').show()
-        })
-    })
-</script>
-
+    </header>
+</div>
 <main>
     @if($errors->any())
         @foreach($errors->all() as $error)
-
-            <div class="errors-post" onclick = "this.remove()">
+            <div class="alert alert-danger alert-dismissible fade show" onclick = "this.remove()">
                 {{ $error }}
-                <button class="close" >
-                    <span>&#10006;</span>
-                </button>
+                <button class="btn"> X Закрыть</button>
             </div>
-
         @endforeach
     @endif
 
-    @yield('content')
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+    @endif
 
+    @yield('content')
 </main>
+<footer class="blog-footer">
+    <p class="mt-0 mb-0"><a href="#"> ↑ Наверх </a></p>
+    <a class="blog-header-logo text-dark d-block fs-4" href="{{route('post.index')}}">VaITy</a>
+    <p class="mt-0">2020</p>
+</footer>
+<script src="{{ asset('js/app.js') }}"></script>
 </body>
 </html>

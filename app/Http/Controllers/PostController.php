@@ -7,17 +7,34 @@ use App\Post;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use phpDocumentor\Reflection\Types\String_;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index','show');
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::join('users', 'author_id', '=', 'users.id')->orderBy('posts.created_at', 'desc')->get();
+        if ($request->search) {
+            $posts = Post::join('users', 'author_id', '=', 'users.id')
+                ->where('title','like','%'.$request->search.'%')
+                ->orWhere('description','like','%'.$request->search.'%')
+                ->orWhere('name','like','%'.$request->search.'%')
+                ->orderBy('posts.created_at', 'desc')
+                ->get();
+            return view('posts.index', compact('posts'));
+        }
+
+        $posts = Post::join('users', 'author_id', '=', 'users.id')->orderBy('posts.created_at', 'desc')->paginate(5);
+
         return view('posts.index', compact('posts'));
     }
 
@@ -46,7 +63,7 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->article = $request->article;
         $post->img = $request->img;
-        $post->author_id = 1;
+        $post->author_id = \Auth::user()->id;
         $post->description = $request->description;
 
         if ($request->file('img')) {
@@ -79,7 +96,11 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        $post = Post::join('users', 'author_id', '=', 'users.id')->find($id);
+        $post = Post::select('posts.*')->find($id);
+
+        if(!$post){
+            return redirect()->route('post.index')->withErrors('Такого поста нет');
+        }
 
         return view('posts.show',compact('post'));
     }
@@ -93,6 +114,15 @@ class PostController extends Controller
     public function edit($id)
     {
         $post = Post::find($id);
+
+        if(!$post){
+            return redirect()->route('post.index')->withErrors('Такого поста нет');
+        }
+
+
+        if ($post->author_id != \Auth::user()->id){
+            return redirect()->route('post.index')->withErrors('Вы не можете редактировать данный пост');
+        }
 
         return view('posts.edit',compact('post'));
     }
@@ -108,12 +138,20 @@ class PostController extends Controller
     {
         $post= Post::find($id);
 
+        if(!$post){
+            return redirect()->route('post.index')->withErrors('Такого поста нет');
+        }
+
+
+        if ($post->author_id != \Auth::user()->id){
+            return redirect()->route('post.index')->withErrors('Вы не можете редактировать данный пост');
+        }
+
         $post->title = $request->title;
         $post->article = $request->article;
         if ($request->img){
             $post->img = $request->img;
         }
-        $post->author_id = 1;
         $post->description = $request->description;
 
         if ($request->file('img')) {
@@ -135,6 +173,14 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
+
+        if(!$post){
+            return redirect()->route('post.index')->withErrors('Такого поста нет');
+        }
+
+        if ($post->author_id != \Auth::user()->id){
+            return redirect()->route('post.index')->withErrors('Вы не можете удалить данный пост');
+        }
 
         $post->delete();
         return redirect()->route('post.index');
