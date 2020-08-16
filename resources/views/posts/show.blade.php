@@ -2,7 +2,7 @@
 @section('content')
     <article class="br-n">
         <h1>{{ $post->title }}</h1>
-        <p class="author"><a href="#">{{$post->name}}</a>, {{$post->created_at}}</p>
+        <p class="author"><a href="#">{{$post->name}}</a>, {{$post->created_at->format('d.m.y H:i')}}</p>
         <img src="{{$post->img}}">
         <p>{{$post->description}}</p>
         {!! $post->article !!}

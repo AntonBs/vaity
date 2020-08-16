@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>VaITy</title>
     <link href="{{asset('css/app.css')}}" rel="stylesheet">
     <link href="{{ asset('css/style.css') }}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700,900" rel="stylesheet">
@@ -38,7 +38,6 @@
                             </div>
                             <div class="modal-body">
                                 <form action="{{ route('post.index') }}">
-                                    @csrf
                                     <div class="form-group">
                                         <label for="recipient-name" class="col-form-label">Найти на сайте:</label>
                                         <input aria-label="Search" name="search" type="search" class="form-control" id="recipient-name">
@@ -84,11 +83,15 @@
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                                 <span class="author-name-mobile dropdown-item ">{{ Auth::user()->name }}</span>
+                                <a class="dropdown-item d-block" href="{{route('post.index',['search'=>Auth::user()->name ])}}">
+                                <span>Мои статьи</span>
+                                </a>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
                                     {{ __('Выйти') }}
                                 </a>
+
 
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                     @csrf
